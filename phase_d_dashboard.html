@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phase D — MasterPlan Program · Antoine</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#F5EDE8; --rose:#E8D4CB; --terra:#C4704F;
+  --near-black:#1C1C1C; --warm-grey:#6B5C57; --warm-grey-light:#e8e0dc;
+  --green:#4a8a4a; --red:#b84040; --neu:#b0a8a3;
+  --amber:#c07a20; --amber-bg:#fdf3e3;
+  --green-bg:#eaf4ea; --red-bg:#faeaea;
+  --info:#2563eb; --info-bg:#eff3ff; --info-border:rgba(37,99,235,0.25);
+  --border:rgba(28,28,28,0.11); --border-med:rgba(28,28,28,0.2);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--near-black);min-height:100vh;padding:48px 24px}
+.page{max-width:820px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+.page-header{border-bottom:0.5px solid var(--border-med);padding-bottom:24px;display:flex;justify-content:space-between;align-items:flex-end}
+.page-header h1{font-family:'DM Serif Display',serif;font-size:13px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-grey);margin-bottom:6px}
+.page-header p{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;line-height:1.2}
+.page-header-right{text-align:right;font-size:12px;color:var(--warm-grey);line-height:1.6}
+.sec-label{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-grey);margin-bottom:14px}
+.card{background:#fff;border:0.5px solid var(--border);border-radius:16px;padding:24px}
+.verdict-grid{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center}
+.verdict-number{font-family:'DM Serif Display',serif;font-size:72px;line-height:1}
+.verdict-pct{font-size:32px;color:var(--warm-grey)}
+.verdict-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--warm-grey);margin-bottom:6px}
+.verdict-text{font-size:15px;line-height:1.6;margin-bottom:16px}
+.verdict-bold{font-family:'DM Serif Display',serif;font-style:italic;font-size:16px}
+.pills-row{display:flex;flex-direction:column;gap:8px;margin-top:20px;padding-top:20px;border-top:0.5px solid var(--border)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:99px;font-size:13px;border:0.5px solid}
+.pill-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.pill-warn{background:var(--amber-bg);border-color:rgba(192,122,32,.3);color:var(--amber)}
+.pill-warn .pill-dot{background:var(--amber)}
+.pill-good{background:var(--green-bg);border-color:rgba(74,138,74,.3);color:var(--green)}
+.pill-good .pill-dot{background:var(--green)}
+.pill-bad{background:var(--red-bg);border-color:rgba(184,64,64,.3);color:var(--red)}
+.pill-bad .pill-dot{background:var(--red)}
+/* Matrix */
+.matrix{border:0.5px solid var(--border);border-radius:16px;overflow:hidden}
+.matrix-grid{display:grid;grid-template-columns:120px repeat(6,minmax(0,1fr))}
+.mh{font-size:11px;font-weight:500;color:var(--warm-grey);text-align:center;padding:10px 4px;background:var(--rose);border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
+.mh:last-child{border-right:none}
+.mh-corner{background:var(--rose);border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
+.mlabel{padding:14px;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border);background:#fff}
+.mlabel-name{font-size:13px;font-weight:500;margin-bottom:2px}
+.mlabel-sub{font-size:11px;color:var(--warm-grey)}
+.mlabel.last{border-bottom:none}
+.mcell{display:flex;align-items:center;justify-content:center;padding:14px 4px;border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border);background:#fff}
+.mcell:last-child{border-right:none}
+.mcell.last{border-bottom:none}
+.matrix-legend{display:flex;gap:20px;flex-wrap:wrap;margin-top:12px}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--warm-grey)}
+/* Scenarios */
+.scen-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.scen-card{background:#fff;border:0.5px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .15s}
+.scen-card.selected{border:1.5px solid var(--info)}
+.scen-head{padding:18px 20px;cursor:pointer;user-select:none}
+.scen-head:hover{background:rgba(0,0,0,.02)}
+.scen-tag{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--warm-grey);margin-bottom:8px}
+.scen-tag.hi{color:var(--info)}
+.scen-title{font-size:15px;font-weight:500;margin-bottom:6px}
+.scen-levels{display:flex;gap:3px;margin-bottom:8px}
+.scen-lvl{height:3px;flex:1;border-radius:2px}
+.scen-brief{font-size:12px;color:var(--warm-grey);line-height:1.5;margin-bottom:10px}
+.scen-portrait{font-size:11px;color:var(--warm-grey);font-style:italic;border-top:0.5px solid var(--border);padding-top:10px;line-height:1.4}
+.scen-toggle{font-size:11px;color:var(--warm-grey);margin-top:10px;display:inline-flex;align-items:center;gap:4px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.scen-toggle svg{transition:transform .2s;flex-shrink:0}
+.scen-toggle.open svg{transform:rotate(180deg)}
+.scen-detail{display:none;border-top:0.5px solid var(--border)}
+.scen-detail.open{display:block}
+.detail-row{padding:12px 20px;border-bottom:0.5px solid var(--border)}
+.detail-row:last-child{border-bottom:none;padding-bottom:16px}
+.detail-key{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--warm-grey);margin-bottom:5px}
+.detail-val{font-size:13px;line-height:1.55}
+.res-tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:6px;background:var(--warm-grey-light);margin:2px 3px 2px 0}
+.arrow-tag{display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--near-black);margin-bottom:6px;line-height:1.4}
+.arrow-tag:last-child{margin-bottom:0}
+.arrow-tag span:first-child{color:var(--warm-grey);flex-shrink:0;font-size:14px}
+.scen-msg{display:none;margin-top:12px;padding:12px 16px;background:var(--info-bg);border:0.5px solid var(--info-border);border-radius:10px;font-size:13px;color:var(--info);line-height:1.5}
+/* Stepper */
+.stepper-wrap{background:#fff;border:0.5px solid var(--border);border-radius:16px;padding:28px 28px 24px}
+.prog-bar{height:2px;background:var(--warm-grey-light);border-radius:2px;overflow:hidden;margin-bottom:28px}
+.prog-fill{height:100%;background:var(--near-black);border-radius:2px;transition:width .3s ease}
+.step-num{font-size:11px;color:var(--warm-grey);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.step-q{font-family:'DM Serif Display',serif;font-size:20px;font-weight:400;margin-bottom:20px;line-height:1.4}
+.opt-btn{display:block;width:100%;text-align:left;padding:12px 16px;border:0.5px solid var(--border);border-radius:10px;background:var(--cream);color:var(--warm-grey);font-size:14px;cursor:pointer;transition:all .12s;font-family:'DM Sans',sans-serif;margin-bottom:8px}
+.opt-btn:hover{border-color:var(--border-med);color:var(--near-black);background:var(--rose)}
+.opt-btn.chosen{border-color:var(--near-black);background:var(--near-black);color:#fff;font-weight:500}
+.step-textarea{width:100%;min-height:90px;padding:14px 16px;font-size:14px;border:0.5px solid var(--border);border-radius:10px;background:var(--cream);color:var(--near-black);resize:vertical;font-family:'DM Sans',sans-serif;line-height:1.5}
+.step-textarea:focus{outline:none;border-color:var(--border-med)}
+.slider-row{display:flex;align-items:center;gap:16px;margin-top:8px}
+.slider-val{font-family:'DM Serif Display',serif;font-size:48px;min-width:56px;color:var(--near-black);line-height:1}
+input[type=range]{flex:1;-webkit-appearance:none;height:2px;background:var(--border-med);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--near-black);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--near-black);cursor:pointer;border:none}
+.slider-ends{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--warm-grey)}
+.step-nav{display:flex;align-items:center;justify-content:space-between;margin-top:24px;padding-top:20px;border-top:0.5px solid var(--border)}
+.nav-btn{padding:10px 22px;border-radius:10px;font-size:14px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .12s}
+.nav-prev{background:transparent;border:0.5px solid var(--border-med);color:var(--warm-grey)}
+.nav-prev:hover{color:var(--near-black);border-color:var(--near-black)}
+.nav-next{background:var(--near-black);border:none;color:#fff;font-weight:500}
+.nav-next:hover{background:var(--warm-grey)}
+.nav-next.send{background:var(--terra)}
+.nav-next.send:hover{background:#a85e40}
+.done-panel{display:none;text-align:center;padding:20px 0}
+.done-icon{width:48px;height:48px;border-radius:50%;background:var(--near-black);color:#fff;font-size:22px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px}
+.done-title{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px}
+.done-sub{font-size:14px;color:var(--warm-grey);line-height:1.6;max-width:400px;margin:0 auto 20px}
+.done-summary{text-align:left;background:var(--cream);border-radius:12px;padding:16px 20px;font-size:12px;line-height:1.8;color:var(--warm-grey);white-space:pre-line;max-height:260px;overflow-y:auto}
+.done-restart{margin-top:16px;display:inline-block;font-size:13px;color:var(--warm-grey);cursor:pointer;text-decoration:underline}
+@media(max-width:600px){
+  .verdict-grid{grid-template-columns:1fr;gap:16px}
+  .scen-grid{grid-template-columns:1fr}
+  .verdict-number{font-size:56px}
+  .matrix-grid{grid-template-columns:90px repeat(6,minmax(0,1fr))}
+  body{padding:24px 16px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="page-header">
+    <div>
+      <h1>MasterPlan Program</h1>
+      <p>Phase D — Confronter vos ressources<br>à vos projets principaux</p>
+    </div>
+    <div class="page-header-right">Antoine<br>Avril 2026</div>
+  </header>
+
+  <!-- 1. Verdict -->
+  <section>
+    <div class="sec-label">Cohérence globale de votre trajectoire</div>
+    <div class="card">
+      <div class="verdict-grid">
+        <div>
+          <div class="verdict-label">Score de cohérence</div>
+          <div class="verdict-number">62<span class="verdict-pct">%</span></div>
+        </div>
+        <div>
+          <p class="verdict-text">Votre trajectoire est aujourd'hui cohérente sur le fond, mais sous tension dans son exécution. Vous avancez dans la bonne direction, mais pas encore dans un cadre suffisamment fluide pour que tous vos projets coexistent sereinement.</p>
+          <p class="verdict-bold">À ce stade, nous estimons que vous êtes sur la bonne voie pour atteindre vos objectifs.</p>
+        </div>
+      </div>
+      <div class="pills-row">
+        <span class="pill pill-warn"><span class="pill-dot"></span>Contrainte principale — Manque de temps utile pour exécuter plusieurs projets structurants en parallèle</span>
+        <span class="pill pill-good"><span class="pill-dot"></span>Point fort — Base financière solide, entourage soutenant, ambition réelle et projet professionnel aligné</span>
+        <span class="pill pill-bad"><span class="pill-dot"></span>Point de tension — Faire coexister plusieurs projets structurants avec temps contraint et énergie irrégulière</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Matrix -->
+  <section>
+    <div class="sec-label">Ressources × Projets — qui freine, qui soutient ?</div>
+    <div class="matrix">
+      <div class="matrix-grid">
+        <div class="mh-corner"></div>
+        <div class="mh">Temps</div><div class="mh">Énergie</div><div class="mh">Argent</div>
+        <div class="mh">Skills</div><div class="mh">Prudence</div><div class="mh">Entourage</div>
+        <div class="mlabel"><div class="mlabel-name">Activité</div><div class="mlabel-sub">indépendante</div></div>
+        <div class="mcell" id="p1t"></div><div class="mcell" id="p1e"></div><div class="mcell" id="p1a"></div>
+        <div class="mcell" id="p1s"></div><div class="mcell" id="p1p"></div><div class="mcell" id="p1en"></div>
+        <div class="mlabel"><div class="mlabel-name">Sécurité</div><div class="mlabel-sub">familiale</div></div>
+        <div class="mcell" id="p2t"></div><div class="mcell" id="p2e"></div><div class="mcell" id="p2a"></div>
+        <div class="mcell" id="p2s"></div><div class="mcell" id="p2p"></div><div class="mcell" id="p2en"></div>
+        <div class="mlabel last"><div class="mlabel-name">Résidence</div><div class="mlabel-sub">principale</div></div>
+        <div class="mcell last" id="p3t"></div><div class="mcell last" id="p3e"></div><div class="mcell last" id="p3a"></div>
+        <div class="mcell last" id="p3s"></div><div class="mcell last" id="p3p"></div><div class="mcell last" id="p3en"></div>
+      </div>
+    </div>
+    <div class="matrix-legend">
+      <div class="legend-item"><div style="width:20px;height:20px;border-radius:50%;background:#b84040;flex-shrink:0"></div>Freine — impact fort</div>
+      <div class="legend-item"><div style="width:9px;height:9px;border-radius:50%;background:#b84040;flex-shrink:0"></div>Freine — impact moyen</div>
+      <div class="legend-item"><div style="width:11px;height:11px;border-radius:50%;background:#b0a8a3;flex-shrink:0"></div>Neutre</div>
+      <div class="legend-item"><div style="width:9px;height:9px;border-radius:50%;background:#4a8a4a;flex-shrink:0"></div>Soutient — impact moyen</div>
+      <div class="legend-item"><div style="width:20px;height:20px;border-radius:50%;background:#4a8a4a;flex-shrink:0"></div>Soutient — impact fort</div>
+    </div>
+  </section>
+
+  <!-- 3. Scénarios -->
+  <section>
+    <div class="sec-label">Ajustements de trajectoire</div>
+
+    <!-- Titre + intro -->
+    <div style="margin-bottom:24px">
+      <h2 style="font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;line-height:1.3;margin-bottom:14px">5 trajectoires possibles pour rendre votre plan plus cohérent</h2>
+      <p style="font-size:14px;color:var(--warm-grey);line-height:1.7;margin-bottom:14px">À ce stade, la question n'est pas seulement de savoir si vos projets sont souhaitables. Elle est de savoir par quel type d'ajustement votre trajectoire peut devenir plus soutenable, sans renoncer à ce qui compte vraiment pour vous.</p>
+      <p style="font-size:14px;color:var(--warm-grey);line-height:1.7">Votre trajectoire ne se construit pas en faisant tout avancer en parallèle. Elle se répartit plutôt en 3 grandes phases :</p>
+    </div>
+
+    <!-- 3 phases -->
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-bottom:20px;border:0.5px solid var(--border);border-radius:12px;overflow:hidden">
+      <div style="padding:16px 18px;background:#fff;border-right:0.5px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--near-black);color:#fff;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+          <div style="font-size:14px;font-weight:500;color:var(--near-black)">Préparation</div>
+        </div>
+        <p style="font-size:12px;color:var(--warm-grey);line-height:1.5;padding-left:34px">Réallouer les ressources là où elles auront le plus d'impact.</p>
+      </div>
+      <div style="padding:16px 18px;background:#fff;border-right:0.5px solid var(--border)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--near-black);color:#fff;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+          <div style="font-size:14px;font-weight:500;color:var(--near-black)">Accélération</div>
+        </div>
+        <p style="font-size:12px;color:var(--warm-grey);line-height:1.5;padding-left:34px">Concentrer les efforts sur ce qui crée le plus de levier.</p>
+      </div>
+      <div style="padding:16px 18px;background:#fff">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div style="width:24px;height:24px;border-radius:50%;background:var(--near-black);color:#fff;font-size:12px;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+          <div style="font-size:14px;font-weight:500;color:var(--near-black)">Consolidation</div>
+        </div>
+        <p style="font-size:12px;color:var(--warm-grey);line-height:1.5;padding-left:34px">Stabiliser, fiabiliser et diversifier.</p>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--warm-grey);margin-bottom:20px;line-height:1.6;font-style:italic">Autrement dit, si vous gardez le même cap, il n'existe en réalité que quelques grandes façons de rendre le plan plus cohérent. Cliquez pour sélectionner un scénario — dépliez pour voir le détail complet.</p>
+    <div class="scen-grid">
+
+      <div class="scen-card" id="card-s1">
+        <div class="scen-head" onclick="toggleScen('s1')">
+          <div class="scen-tag">Scénario 1 · 1/4 — Peu utile</div>
+          <div class="scen-levels">
+            <div class="scen-lvl" style="background:var(--near-black)"></div>
+            <div class="scen-lvl" style="background:var(--border)"></div>
+            <div class="scen-lvl" style="background:var(--border)"></div>
+            <div class="scen-lvl" style="background:var(--border)"></div>
+          </div>
+          <div class="scen-title">Revoir l'ambition</div>
+          <div class="scen-brief">Réduire l'intensité à court terme. Moins de pression, aucune ressource supplémentaire nécessaire.</div>
+          <div class="scen-portrait">"Vous sentez que l'ambition actuelle met trop de pression sur l'ensemble."</div>
+          <div class="scen-toggle" id="tog-s1" onclick="event.stopPropagation();toggleDetail('s1')">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Voir le détail
+          </div>
+        </div>
+        <div class="scen-detail" id="det-s1">
+          <div class="detail-row"><div class="detail-key">Ce que cela apporte</div><div class="detail-val">Moins de pression</div></div>
+          <div class="detail-row"><div class="detail-key">Ressources nécessaires</div><div class="detail-val">Aucune</div></div>
+          <div class="detail-row"><div class="detail-key">Transfert de ressources</div><div class="detail-val" style="color:var(--warm-grey);font-style:italic">Non applicable</div></div>
+          <div class="detail-row"><div class="detail-key">Ajustements nécessaires</div><div class="detail-val">Accepter de ne pas tout faire avancer au même niveau d'intensité en même temps — maison moins confortable, activité indépendante en side business, etc.</div></div>
+        </div>
+      </div>
+
+      <div class="scen-card" id="card-s2">
+        <div class="scen-head" onclick="toggleScen('s2')">
+          <div class="scen-tag hi">Scénario 2 · 3/4 — Recommandé</div>
+          <div class="scen-levels">
+            <div class="scen-lvl" style="background:var(--info)"></div>
+            <div class="scen-lvl" style="background:var(--info)"></div>
+            <div class="scen-lvl" style="background:var(--info)"></div>
+            <div class="scen-lvl" style="background:var(--border)"></div>
+          </div>
+          <div class="scen-title">Revoir le calendrier</div>
+          <div class="scen-brief">Garder le cap, mais séquencer. Clarifier l'ordre entre sécurité, transition pro, immobilier et construction patrimoniale.</div>
+          <div class="scen-portrait">"Vous priorisez la sécurité du foyer sur la vitesse d'exécution."</div>
+          <div class="scen-toggle" id="tog-s2" onclick="event.stopPropagation();toggleDetail('s2')">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Voir le détail
+          </div>
+        </div>
+        <div class="scen-detail" id="det-s2">
+          <div class="detail-row"><div class="detail-key">Ce que cela apporte</div><div class="detail-val">Plus de soutenabilité</div></div>
+          <div class="detail-row"><div class="detail-key">Ressources nécessaires</div><div class="detail-val">Aucune</div></div>
+          <div class="detail-row"><div class="detail-key">Transfert de ressources</div><div class="detail-val" style="color:var(--warm-grey);font-style:italic">Non applicable</div></div>
+          <div class="detail-row"><div class="detail-key">Ajustements nécessaires</div><div class="detail-val">Clarifier l'ordre entre sécurité du foyer, transition professionnelle, projet immobilier et construction patrimoniale.</div></div>
+        </div>
+      </div>
+
+      <div class="scen-card" id="card-s3">
+        <div class="scen-head" onclick="toggleScen('s3')">
+          <div class="scen-tag">Scénario 3 · 2/4 — Exigeant</div>
+          <div class="scen-levels">
+            <div class="scen-lvl" style="background:var(--amber)"></div>
+            <div class="scen-lvl" style="background:var(--amber)"></div>
+            <div class="scen-lvl" style="background:var(--border)"></div>
+            <div class="scen-lvl" style="background:var(--border)"></div>
+          </div>
+          <div class="scen-title">Augmenter les flux financiers</div>
+          <div class="scen-brief">Mobiliser l'argent pour développer des compétences à forte valeur et augmenter sa capacité à générer des revenus.</div>
+          <div class="scen-portrait">"Vous priorisez l'autonomie recherchée et la sécurité, même au prix d'un effort supplémentaire à court terme."</div>
+          <div class="scen-toggle" id="tog-s3" onclick="event.stopPropagation();toggleDetail('s3')">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Voir le détail
+          </div>
+        </div>
+        <div class="scen-detail" id="det-s3">
+          <div class="detail-row"><div class="detail-key">Ce que cela apporte</div><div class="detail-val">Plus de marge financière</div></div>
+          <div class="detail-row">
+            <div class="detail-key">Ressources nécessaires</div>
+            <div class="detail-val"><span class="res-tag">Skills +++</span><span class="res-tag">Temps ++</span><span class="res-tag">Énergie +</span></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-key">Transfert de ressources</div>
+            <div class="detail-val">
+              <div class="arrow-tag"><span>→</span><span>Argent → Skills pour mieux se valoriser dans son domaine professionnel</span></div>
+              <div class="arrow-tag"><span>→</span><span>Argent → Temps pour récupérer du temps utile pour se former</span></div>
+              <div class="arrow-tag"><span>→</span><span>Skills + Temps → Argent pour développer votre activité indépendante</span></div>
+            </div>
+          </div>
+          <div class="detail-row"><div class="detail-key">Ajustements nécessaires</div><div class="detail-val">Mobiliser la ressource argent pour développer des compétences à plus forte valeur, afin d'augmenter plus vite sa capacité à générer des revenus via son travail.</div></div>
+        </div>
+      </div>
+
+      <div class="scen-card" id="card-s4">
+        <div class="scen-head" onclick="toggleScen('s4')">
+          <div class="scen-tag hi">Scénario 4 · 3/4 — Recommandé</div>
+          <div class="scen-levels">
+            <div class="scen-lvl" style="background:var(--info)"></div>
+            <div class="scen-lvl" style="background:var(--info)"></div>
+            <div class="scen-lvl" style="background:var(--info)"></div>
+            <div class="scen-lvl" style="background:var(--border)"></div>
+          </div>
+          <div class="scen-title">Augmenter le rendement financier</div>
+          <div class="scen-brief">Faire mieux travailler le capital existant. Revoir la tolérance au risque pour plus de sécurité financière.</div>
+          <div class="scen-portrait">"Vous acceptez de prendre des risques (mesurés) au service de votre liberté future."</div>
+          <div class="scen-toggle" id="tog-s4" onclick="event.stopPropagation();toggleDetail('s4')">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Voir le détail
+          </div>
+        </div>
+        <div class="scen-detail" id="det-s4">
+          <div class="detail-row"><div class="detail-key">Ce que cela apporte</div><div class="detail-val">Plus de sécurité financière</div></div>
+          <div class="detail-row">
+            <div class="detail-key">Ressources nécessaires</div>
+            <div class="detail-val"><span class="res-tag">Argent +++</span><span class="res-tag">Skills +++</span><span class="res-tag">Temps ++</span></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-key">Transfert de ressources</div>
+            <div class="detail-val">
+              <div class="arrow-tag"><span>→</span><span>Argent et/ou Temps → Skills : développer ses connaissances et compétences en matière d'investissement et de gestion financière</span></div>
+            </div>
+          </div>
+          <div class="detail-row"><div class="detail-key">Ajustements nécessaires</div><div class="detail-val">Revoir votre tolérance au risque. Accepter qu'une partie du patrimoine puisse fluctuer à court terme.</div></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="scen-msg" id="scen-msg"></div>
+  </section>
+
+  <!-- 4. Stepper -->
+  <section>
+    <div class="sec-label">Préparer le rendez-vous expert</div>
+    <div class="stepper-wrap">
+      <div class="prog-bar"><div class="prog-fill" id="prog" style="width:10%"></div></div>
+      <div id="step-area"></div>
+      <div class="step-nav" id="step-nav">
+        <button class="nav-btn nav-prev" id="prev-btn" onclick="prevStep()" style="display:none">← Précédent</button>
+        <div style="flex:1"></div>
+        <span style="font-size:12px;color:var(--warm-grey);margin-right:14px" id="step-ctr"></span>
+        <button class="nav-btn nav-next" id="next-btn" onclick="nextStep()">Suivant →</button>
+      </div>
+      <div class="done-panel" id="done-panel">
+        <div class="done-icon">✓</div>
+        <div class="done-title">Vos réponses sont prêtes</div>
+        <div class="done-sub">Ce récapitulatif sera partagé avec votre expert avant le rendez-vous pour orienter la conversation vers ce qui compte le plus pour vous.</div>
+        <div class="done-summary" id="done-summary"></div>
+        <div class="done-restart" onclick="restartStepper()">Recommencer le questionnaire</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script>
+const RED='#b84040',GRN='#4a8a4a',NEU='#b0a8a3';
+function cell(id,color,sz){
+  const el=document.getElementById(id);if(!el)return;
+  const s=sz==='lg'?20:sz==='sm'?9:11;
+  el.innerHTML=`<div style="width:${s}px;height:${s}px;border-radius:50%;background:${color};flex-shrink:0"></div>`;
+}
+cell('p1t',RED,'lg');cell('p1e',RED,'sm');cell('p1a',GRN,'lg');cell('p1s',NEU,'md');cell('p1p',RED,'lg');cell('p1en',GRN,'sm');
+cell('p2t',RED,'sm');cell('p2e',RED,'sm');cell('p2a',GRN,'lg');cell('p2s',NEU,'md');cell('p2p',GRN,'lg');cell('p2en',GRN,'lg');
+cell('p3t',RED,'lg');cell('p3e',RED,'sm');cell('p3a',GRN,'lg');cell('p3s',NEU,'md');cell('p3p',RED,'lg');cell('p3en',GRN,'sm');
+
+const sel=new Set();
+const slbls={s1:'Revoir l\'ambition',s2:'Revoir le calendrier',s3:'Augmenter les flux financiers',s4:'Augmenter le rendement financier'};
+function toggleScen(id){
+  const c=document.getElementById('card-'+id);
+  sel.has(id)?(sel.delete(id),c.classList.remove('selected')):(sel.add(id),c.classList.add('selected'));
+  const m=document.getElementById('scen-msg');
+  if(!sel.size){m.style.display='none';return;}
+  m.style.display='block';
+  m.textContent='Sélection : '+[...sel].map(s=>slbls[s]).join(' + ')+' — à partager avec l\'expert lors du rendez-vous.';
+}
+function toggleDetail(id){
+  const d=document.getElementById('det-'+id),t=document.getElementById('tog-'+id);
+  const o=d.classList.toggle('open');
+  t.classList.toggle('open',o);
+  t.innerHTML=`<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>${o?'Masquer le détail':'Voir le détail'}`;
+}
+
+const questions=[
+  {q:'À la lecture de cette trajectoire, votre sentiment dominant est plutôt :',opts:['Ça me paraît fluide et réaliste','Ambitieux mais faisable','Trop tendu','Incohérent à ce stade']},
+  {q:'La principale tension que cette trajectoire fait ressortir vous semble :',opts:['Un rythme trop rapide','Une charge trop lourde à porter','Un niveau de risque difficile à accepter','Des arbitrages trop coûteux pour mes autres priorités','Je ne sais pas encore']},
+  {q:'Lequel de ces scénarios vous paraît aujourd\'hui le plus juste ?',opts:['Scénario 1 — Revoir l\'ambition','Scénario 2 — Revoir le calendrier','Scénario 3 — Augmenter les flux financiers','Scénario 4 — Augmenter le rendement financier']},
+  {q:'Lequel vous semble le plus difficile à accepter ?',opts:['Scénario 1 — Revoir l\'ambition','Scénario 2 — Revoir le calendrier','Scénario 3 — Augmenter les flux financiers','Scénario 4 — Augmenter le rendement financier']},
+  {q:'Si vous deviez ajuster cette trajectoire, vous préféreriez :',opts:['Ralentir le calendrier','Revoir certains projets','Augmenter vos ressources financières','Utiliser une partie de vos ressources pour récupérer du temps utile']},
+  {q:'Quel élément est le plus non négociable pour vous aujourd\'hui ?',opts:['Le niveau de sécurité','La vie familiale','La vitesse de transition','Le potentiel de croissance']},
+  {q:'Si vous deviez combiner deux scénarios, lesquels formeraient la trajectoire la plus réaliste ?',multi:true,opts:['Scénario 1 — Revoir l\'ambition','Scénario 2 — Revoir le calendrier','Scénario 3 — Augmenter les flux financiers','Scénario 4 — Augmenter le rendement financier']},
+  {q:'Sur une échelle de 1 à 10, à quel point vous sentez-vous aligné avec cette trajectoire aujourd\'hui ?',slider:true},
+  {q:'Qu\'est-ce qui explique principalement votre note ?',open:true,placeholder:'Exprimez ce qui vous vient naturellement…'},
+  {q:'Si vous pouvez poser une seule question à l\'expert pour sécuriser ou ajuster cette trajectoire, laquelle serait-elle ?',open:true,placeholder:'Votre question pour l\'expert…'}
+];
+const ans={};let cur=0;
+function renderStep(){
+  const q=questions[cur],tot=questions.length;
+  document.getElementById('prog').style.width=Math.round((cur+1)/tot*100)+'%';
+  document.getElementById('step-ctr').textContent=(cur+1)+' / '+tot;
+  document.getElementById('prev-btn').style.display=cur===0?'none':'inline-block';
+  const nb=document.getElementById('next-btn');
+  nb.textContent=cur===tot-1?'Envoyer à l\'expert →':'Suivant →';
+  nb.className='nav-btn nav-next'+(cur===tot-1?' send':'');
+  let h=`<div class="step-num">Question ${cur+1} sur ${tot}</div><div class="step-q">${q.q}</div>`;
+  if(q.slider){
+    const v=ans[cur]!==undefined?ans[cur]:5;
+    h+=`<div class="slider-row"><div style="flex:1"><input type="range" min="1" max="10" step="1" value="${v}" id="sl" oninput="document.getElementById('slv').textContent=this.value;ans[${cur}]=+this.value"><div class="slider-ends"><span>Peu aligné</span><span>Totalement aligné</span></div></div><div class="slider-val" id="slv">${v}</div></div>`;
+  }else if(q.open){
+    h+=`<textarea class="step-textarea" placeholder="${q.placeholder||''}" id="ta">${ans[cur]||''}</textarea>`;
+  }else{
+    const sv=ans[cur]!==undefined?ans[cur]:(q.multi?[]:null);
+    q.opts.forEach((o,i)=>{
+      const a=q.multi?(Array.isArray(sv)&&sv.includes(i)):sv===i;
+      h+=`<button class="opt-btn${a?' chosen':''}" onclick="selOpt(${cur},${i},${!!q.multi})">${o}</button>`;
+    });
+  }
+  document.getElementById('step-area').innerHTML=h;
+}
+function selOpt(si,oi,multi){
+  if(multi){if(!Array.isArray(ans[si]))ans[si]=[];const a=ans[si],p=a.indexOf(oi);p>=0?a.splice(p,1):a.push(oi);}
+  else ans[si]=oi;
+  renderStep();
+}
+function nextStep(){
+  const q=questions[cur];
+  if(q.slider)ans[cur]=+(document.getElementById('sl')?.value||5);
+  if(q.open)ans[cur]=document.getElementById('ta')?.value||'';
+  if(cur===questions.length-1){showDone();return;}
+  cur++;renderStep();
+}
+function prevStep(){if(cur>0){cur--;renderStep();}}
+function showDone(){
+  document.getElementById('step-area').style.display='none';
+  document.getElementById('step-nav').style.display='none';
+  document.getElementById('prog').style.width='100%';
+  document.getElementById('done-panel').style.display='block';
+  const lines=['Récapitulatif — Questions préparatoires Phase D\n'];
+  questions.forEach((q,i)=>{
+    let a=ans[i];
+    if(a===undefined||a===null||a==='')a='—';
+    else if(Array.isArray(a))a=a.length?a.map(idx=>q.opts[idx]).join(' + '):'—';
+    else if(typeof a==='number'&&q.opts)a=q.opts[a];
+    lines.push((i+1)+'. '+q.q+'\n→ '+a);
+  });
+  if(sel.size)lines.push('\nScénarios sélectionnés :\n→ '+[...sel].map(s=>slbls[s]).join(' + '));
+  document.getElementById('done-summary').textContent=lines.join('\n\n');
+}
+function restartStepper(){
+  Object.keys(ans).forEach(k=>delete ans[k]);cur=0;
+  document.getElementById('step-area').style.display='block';
+  document.getElementById('step-nav').style.display='flex';
+  document.getElementById('done-panel').style.display='none';
+  renderStep();
+}
+renderStep();
+</script>
+</body>
+</html>
