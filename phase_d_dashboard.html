@@ -123,7 +123,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
 </head>
 <body>
 <div class="page">
-
+ 
   <header class="page-header">
     <div>
       <h1>MasterPlan Program</h1>
@@ -131,7 +131,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
     </div>
     <div class="page-header-right">Antoine<br>Avril 2026</div>
   </header>
-
+ 
   <!-- 1. Verdict -->
   <section>
     <div class="sec-label">Cohérence globale de votre trajectoire</div>
@@ -153,7 +153,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
       </div>
     </div>
   </section>
-
+ 
   <!-- 2. Matrix -->
   <section>
     <div class="sec-label">Ressources × Projets — qui freine, qui soutient ?</div>
@@ -180,19 +180,47 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
       <div class="legend-item"><div style="width:9px;height:9px;border-radius:50%;background:#4a8a4a;flex-shrink:0"></div>Soutient — impact moyen</div>
       <div class="legend-item"><div style="width:20px;height:20px;border-radius:50%;background:#4a8a4a;flex-shrink:0"></div>Soutient — impact fort</div>
     </div>
+ 
+    <!-- Conclusions projets -->
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px">
+      <div style="background:#fff;border:0.5px solid var(--border);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--warm-grey);margin-bottom:6px">Activité indépendante</div>
+        <p style="font-size:13px;color:var(--near-black);line-height:1.5;margin-bottom:8px">Très aligné avec ce que vous voulez construire, mais encore difficile à exécuter dans les conditions actuelles.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="font-size:10px;padding:2px 8px;border-radius:99px;background:var(--green-bg);color:var(--green);border:0.5px solid rgba(74,138,74,.2)">Cohérence forte</span>
+          <span style="font-size:10px;padding:2px 8px;border-radius:99px;background:var(--red-bg);color:var(--red);border:0.5px solid rgba(184,64,64,.2)">Tension forte</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:0.5px solid rgba(74,138,74,.3);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--warm-grey);margin-bottom:6px">Sécurité familiale</div>
+        <p style="font-size:13px;color:var(--near-black);line-height:1.5;margin-bottom:8px">Le projet le plus cohérent avec vos priorités actuelles — il protège ce que vous refusez de sacrifier.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="font-size:10px;padding:2px 8px;border-radius:99px;background:var(--green-bg);color:var(--green);border:0.5px solid rgba(74,138,74,.2)">Cohérence très forte</span>
+          <span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#f5f5f5;color:var(--warm-grey);border:0.5px solid var(--border)">Tension faible</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:0.5px solid var(--border);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--warm-grey);margin-bottom:6px">Résidence principale</div>
+        <p style="font-size:13px;color:var(--near-black);line-height:1.5;margin-bottom:8px">Cohérent sur le fond, mais sensible s'il intervient trop tôt par rapport à la transition professionnelle.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <span style="font-size:10px;padding:2px 8px;border-radius:99px;background:var(--amber-bg);color:var(--amber);border:0.5px solid rgba(192,122,32,.2)">Cohérence moyenne</span>
+          <span style="font-size:10px;padding:2px 8px;border-radius:99px;background:var(--red-bg);color:var(--red);border:0.5px solid rgba(184,64,64,.2)">Tension forte</span>
+        </div>
+      </div>
+    </div>
   </section>
-
+ 
   <!-- 3. Scénarios -->
   <section>
     <div class="sec-label">Ajustements de trajectoire</div>
-
+ 
     <!-- Titre + intro -->
     <div style="margin-bottom:24px">
       <h2 style="font-family:'DM Serif Display',serif;font-size:22px;font-weight:400;line-height:1.3;margin-bottom:14px">5 trajectoires possibles pour rendre votre plan plus cohérent</h2>
       <p style="font-size:14px;color:var(--warm-grey);line-height:1.7;margin-bottom:14px">À ce stade, la question n'est pas seulement de savoir si vos projets sont souhaitables. Elle est de savoir par quel type d'ajustement votre trajectoire peut devenir plus soutenable, sans renoncer à ce qui compte vraiment pour vous.</p>
       <p style="font-size:14px;color:var(--warm-grey);line-height:1.7">Votre trajectoire ne se construit pas en faisant tout avancer en parallèle. Elle se répartit plutôt en 3 grandes phases :</p>
     </div>
-
+ 
     <!-- 3 phases -->
     <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-bottom:20px;border:0.5px solid var(--border);border-radius:12px;overflow:hidden">
       <div style="padding:16px 18px;background:#fff;border-right:0.5px solid var(--border)">
@@ -217,10 +245,10 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
         <p style="font-size:12px;color:var(--warm-grey);line-height:1.5;padding-left:34px">Stabiliser, fiabiliser et diversifier.</p>
       </div>
     </div>
-
+ 
     <p style="font-size:13px;color:var(--warm-grey);margin-bottom:20px;line-height:1.6;font-style:italic">Autrement dit, si vous gardez le même cap, il n'existe en réalité que quelques grandes façons de rendre le plan plus cohérent. Cliquez pour sélectionner un scénario — dépliez pour voir le détail complet.</p>
     <div class="scen-grid">
-
+ 
       <div class="scen-card" id="card-s1">
         <div class="scen-head" onclick="toggleScen('s1')">
           <div class="scen-tag">Scénario 1 · 1/4 — Peu utile</div>
@@ -232,7 +260,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           </div>
           <div class="scen-title">Revoir l'ambition</div>
           <div class="scen-brief">Réduire l'intensité à court terme. Moins de pression, aucune ressource supplémentaire nécessaire.</div>
-          <div class="scen-portrait">"Vous sentez que l'ambition actuelle met trop de pression sur l'ensemble."</div>
+          <div class="scen-portrait"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--warm-grey);display:block;margin-bottom:3px">Cela vous ressemble si…</span>Vous sentez que l'ambition actuelle met trop de pression sur l'ensemble.</div>
           <div class="scen-toggle" id="tog-s1" onclick="event.stopPropagation();toggleDetail('s1')">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Voir le détail
@@ -245,7 +273,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           <div class="detail-row"><div class="detail-key">Ajustements nécessaires</div><div class="detail-val">Accepter de ne pas tout faire avancer au même niveau d'intensité en même temps — maison moins confortable, activité indépendante en side business, etc.</div></div>
         </div>
       </div>
-
+ 
       <div class="scen-card" id="card-s2">
         <div class="scen-head" onclick="toggleScen('s2')">
           <div class="scen-tag hi">Scénario 2 · 3/4 — Recommandé</div>
@@ -257,7 +285,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           </div>
           <div class="scen-title">Revoir le calendrier</div>
           <div class="scen-brief">Garder le cap, mais séquencer. Clarifier l'ordre entre sécurité, transition pro, immobilier et construction patrimoniale.</div>
-          <div class="scen-portrait">"Vous priorisez la sécurité du foyer sur la vitesse d'exécution."</div>
+          <div class="scen-portrait"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--warm-grey);display:block;margin-bottom:3px">Cela vous ressemble si…</span>Vous priorisez la sécurité du foyer sur la vitesse d'exécution.</div>
           <div class="scen-toggle" id="tog-s2" onclick="event.stopPropagation();toggleDetail('s2')">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Voir le détail
@@ -270,7 +298,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           <div class="detail-row"><div class="detail-key">Ajustements nécessaires</div><div class="detail-val">Clarifier l'ordre entre sécurité du foyer, transition professionnelle, projet immobilier et construction patrimoniale.</div></div>
         </div>
       </div>
-
+ 
       <div class="scen-card" id="card-s3">
         <div class="scen-head" onclick="toggleScen('s3')">
           <div class="scen-tag">Scénario 3 · 2/4 — Exigeant</div>
@@ -282,7 +310,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           </div>
           <div class="scen-title">Augmenter les flux financiers</div>
           <div class="scen-brief">Mobiliser l'argent pour développer des compétences à forte valeur et augmenter sa capacité à générer des revenus.</div>
-          <div class="scen-portrait">"Vous priorisez l'autonomie recherchée et la sécurité, même au prix d'un effort supplémentaire à court terme."</div>
+          <div class="scen-portrait"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--warm-grey);display:block;margin-bottom:3px">Cela vous ressemble si…</span>Vous priorisez l'autonomie recherchée et la sécurité, même au prix d'un effort supplémentaire à court terme.</div>
           <div class="scen-toggle" id="tog-s3" onclick="event.stopPropagation();toggleDetail('s3')">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Voir le détail
@@ -305,7 +333,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           <div class="detail-row"><div class="detail-key">Ajustements nécessaires</div><div class="detail-val">Mobiliser la ressource argent pour développer des compétences à plus forte valeur, afin d'augmenter plus vite sa capacité à générer des revenus via son travail.</div></div>
         </div>
       </div>
-
+ 
       <div class="scen-card" id="card-s4">
         <div class="scen-head" onclick="toggleScen('s4')">
           <div class="scen-tag hi">Scénario 4 · 3/4 — Recommandé</div>
@@ -317,7 +345,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           </div>
           <div class="scen-title">Augmenter le rendement financier</div>
           <div class="scen-brief">Faire mieux travailler le capital existant. Revoir la tolérance au risque pour plus de sécurité financière.</div>
-          <div class="scen-portrait">"Vous acceptez de prendre des risques (mesurés) au service de votre liberté future."</div>
+          <div class="scen-portrait"><span style="font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--warm-grey);display:block;margin-bottom:3px">Cela vous ressemble si…</span>Vous acceptez de prendre des risques (mesurés) au service de votre liberté future.</div>
           <div class="scen-toggle" id="tog-s4" onclick="event.stopPropagation();toggleDetail('s4')">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Voir le détail
@@ -338,11 +366,11 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
           <div class="detail-row"><div class="detail-key">Ajustements nécessaires</div><div class="detail-val">Revoir votre tolérance au risque. Accepter qu'une partie du patrimoine puisse fluctuer à court terme.</div></div>
         </div>
       </div>
-
+ 
     </div>
     <div class="scen-msg" id="scen-msg"></div>
   </section>
-
+ 
   <!-- 4. Stepper -->
   <section>
     <div class="sec-label">Préparer le rendez-vous expert</div>
@@ -364,7 +392,7 @@ input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;bac
       </div>
     </div>
   </section>
-
+ 
 </div>
 <script>
 const RED='#b84040',GRN='#4a8a4a',NEU='#b0a8a3';
@@ -376,7 +404,7 @@ function cell(id,color,sz){
 cell('p1t',RED,'lg');cell('p1e',RED,'sm');cell('p1a',GRN,'lg');cell('p1s',NEU,'md');cell('p1p',RED,'lg');cell('p1en',GRN,'sm');
 cell('p2t',RED,'sm');cell('p2e',RED,'sm');cell('p2a',GRN,'lg');cell('p2s',NEU,'md');cell('p2p',GRN,'lg');cell('p2en',GRN,'lg');
 cell('p3t',RED,'lg');cell('p3e',RED,'sm');cell('p3a',GRN,'lg');cell('p3s',NEU,'md');cell('p3p',RED,'lg');cell('p3en',GRN,'sm');
-
+ 
 const sel=new Set();
 const slbls={s1:'Revoir l\'ambition',s2:'Revoir le calendrier',s3:'Augmenter les flux financiers',s4:'Augmenter le rendement financier'};
 function toggleScen(id){
@@ -393,7 +421,7 @@ function toggleDetail(id){
   t.classList.toggle('open',o);
   t.innerHTML=`<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>${o?'Masquer le détail':'Voir le détail'}`;
 }
-
+ 
 const questions=[
   {q:'À la lecture de cette trajectoire, votre sentiment dominant est plutôt :',opts:['Ça me paraît fluide et réaliste','Ambitieux mais faisable','Trop tendu','Incohérent à ce stade']},
   {q:'La principale tension que cette trajectoire fait ressortir vous semble :',opts:['Un rythme trop rapide','Une charge trop lourde à porter','Un niveau de risque difficile à accepter','Des arbitrages trop coûteux pour mes autres priorités','Je ne sais pas encore']},
@@ -470,3 +498,10 @@ renderStep();
 </script>
 </body>
 </html>
+ 
+
+
+
+
+
+
